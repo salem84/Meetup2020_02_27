@@ -1,0 +1,7 @@
+pool:
+  vmImage: 'ubuntu-18.04'
+
+steps:
+- script: |
+    docker run -i -v `pwd`:/src loadimpact/k6 run /src/tests/performance/local.js
+  displayName: Run k6 from Docker locally
