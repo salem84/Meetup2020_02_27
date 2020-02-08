@@ -1,5 +1,6 @@
 import { check, group, sleep } from "k6";
 import http from "k6/http";
+import { Rate } from "k6/metrics";
 
 const myFailRate = new Rate('failed requests');
 
