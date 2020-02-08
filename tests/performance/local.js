@@ -1,6 +1,8 @@
 import { check, group, sleep } from "k6";
 import http from "k6/http";
 
+const myFailRate = new Rate('failed requests');
+
 // Test configuration
 export let options = {
     // Rampup for 10s from 1 to 15, stay at 15, and then down to 0
@@ -25,6 +27,7 @@ export default function() {
             "is status 200": (r) => r.status === 200
         });
 
+        myFailRate.add(res.status !== 500);
         // Simulate user reading the page
         sleep(5);
     });
