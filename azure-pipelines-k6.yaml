@@ -7,7 +7,7 @@ steps:
     #echo "deb https://dl.bintray.com/loadimpact/deb stable main" | sudo tee -a /etc/apt/sources.list
     #sudo apt-get update
     #sudo apt-get install k6
-    snap install k6
+    sudo snap install k6
   displayName: Install k6 tool
 
 - script: |
