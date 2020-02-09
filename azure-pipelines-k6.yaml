@@ -22,8 +22,9 @@ steps:
     echo 'Totale falliti: ' $code
     if [ $code -eq 0 ]  
       then echo Check success
-      else echo exit 10
+      else exit 10
     fi
   displayName: Check errori
+  
     
   
