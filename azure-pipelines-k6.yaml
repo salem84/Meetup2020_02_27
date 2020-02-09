@@ -3,11 +3,10 @@ pool:
 
 steps:
 - script: |
-    #sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
-    #echo "deb https://dl.bintray.com/loadimpact/deb stable main" | sudo tee -a /etc/apt/sources.list
-    #sudo apt-get update
-    #sudo apt-get install k6
-    sudo snap install k6
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61
+    echo "deb https://dl.bintray.com/loadimpact/deb stable main" | sudo tee -a /etc/apt/sources.list
+    sudo apt-get update
+    sudo apt-get install k6
   displayName: Install k6 tool
 
 - script: |
@@ -15,8 +14,14 @@ steps:
   displayName: Check if k6 is installed
 
 - script: |
-    VAR=$(k6 run tests/performance/local.js)
-    echo "ciao"
-    echo "$VAR"
+    k6 run --summary-export summary.json tests/performance/local.js
   displayName: Run k6 load test within Azure Pipelines
 
+- script: |
+    code=$(cat summary.json | jq '. | .metrics.checks.fails > 0')
+    if [ $code -eq 0 ]  
+      then echo Check failed >&2
+      else echo Check success
+    fi
+    
+  
