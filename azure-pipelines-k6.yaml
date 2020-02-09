@@ -15,6 +15,7 @@ steps:
 
 - script: |
     VAR=$(k6 run tests/performance/local.js)
+    echo "ciao"
     echo "$VAR"
   displayName: Run k6 load test within Azure Pipelines
 
