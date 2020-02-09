@@ -24,5 +24,7 @@ steps:
       then echo Check success
       else echo Check failed >&2
     fi
+  displayName: Check errori
+  failOnStandardError: true
     
   
