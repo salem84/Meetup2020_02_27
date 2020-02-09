@@ -7,7 +7,7 @@ steps:
     echo "deb https://dl.bintray.com/loadimpact/deb stable main" | sudo tee -a /etc/apt/sources.list
     sudo apt-get update
     sudo apt-get install k6
-    npm install -g k6-to-junit
+    sudo npm install -g k6-to-junit
   displayName: Install k6 tool
 
 - script: |
