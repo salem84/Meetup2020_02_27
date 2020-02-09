@@ -16,3 +16,10 @@ steps:
 - script: |
     k6 run tests/performance/local.js
   displayName: Run k6 load test within Azure Pipelines
+
+
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: 'k6 run tests/performance/local.js'
+    failOnStderr: true
