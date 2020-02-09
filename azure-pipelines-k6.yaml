@@ -14,12 +14,7 @@ steps:
   displayName: Check if k6 is installed
 
 - script: |
-    k6 run tests/performance/local.js
+    VAR=$(k6 run tests/performance/local.js)
+    echo "$VAR"
   displayName: Run k6 load test within Azure Pipelines
 
-
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: 'k6 run tests/performance/local.js'
-    failOnStderr: true
