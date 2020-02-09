@@ -18,5 +18,3 @@ steps:
     k6 run tests/performance/local.js | k6-to-junit junit.xml
   displayName: Run k6 load test within Azure Pipelines
   
-    
-  
