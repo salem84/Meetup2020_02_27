@@ -19,6 +19,7 @@ steps:
 
 - script: |
     code=$(cat summary.json | jq '. | .metrics.checks.fails')
+    echo 'Totale falliti: ' $code
     if [ $code -eq 0 ]  
       then echo Check failed >&2
       else echo Check success
