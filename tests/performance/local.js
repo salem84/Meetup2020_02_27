@@ -25,10 +25,10 @@ export default function() {
 
         // Make sure the status code is 200 OK
         check(res, {
-            "is status 200": (r) => r.status === 200
+            "is status 200": (r) => r.status === 201
         });
 
-        myFailRate.add(res.status !== 500);
+        myFailRate.add(res.status !== 200);
         // Simulate user reading the page
         sleep(5);
     });
