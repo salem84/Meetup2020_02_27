@@ -25,7 +25,7 @@ export default function() {
 
         // Make sure the status code is 200 OK
         check(res, {
-            "is status 200": (r) => r.status === 201
+            "is status 200": (r) => r.status === 200
         });
 
         myFailRate.add(res.status !== 200);
