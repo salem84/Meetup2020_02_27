@@ -54,6 +54,8 @@ namespace Menu.API
                     ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
             });
 
+
+            /*
             services.AddAuthorization();
 
             var identityUrl = Configuration["IDENTITY_URL"];
@@ -75,7 +77,7 @@ namespace Menu.API
                     RoleClaimType = JwtClaimTypes.Role,
                     ValidateIssuer = false
                 };
-            });
+            });*/
 
             var connectionString = Configuration.GetConnectionString("MenuDatabaseConnectionString");
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -107,8 +109,8 @@ namespace Menu.API
                 {
                     Type = "oauth2",
                     Flow = "implicit",
-                    AuthorizationUrl = $"{publicIdentityUrl}/connect/authorize",
-                    TokenUrl = $"{publicIdentityUrl}/connect/token",
+                    //AuthorizationUrl = $"{publicIdentityUrl}/connect/authorize",
+                    //TokenUrl = $"{publicIdentityUrl}/connect/token",
                     Scopes = new Dictionary<string, string>()
                     {
                         { "menu-api", "Restaurant Menu Api" }
