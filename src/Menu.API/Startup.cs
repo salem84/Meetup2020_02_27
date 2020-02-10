@@ -82,11 +82,11 @@ namespace Menu.API
             var connectionString = Configuration.GetConnectionString("MenuDatabaseConnectionString");
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseNpgsql(connectionString);
+                options.UseSqlServer(connectionString);
             });
 
             services.AddHealthChecks()
-                .AddNpgSql(connectionString);
+                .AddSqlServer(connectionString);
 
             services.AddCors(o => o.AddPolicy("ServerPolicy", builder =>
             {
