@@ -5,8 +5,6 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
-using Amazon;
-using Amazon.S3;
 using AutoMapper;
 using IdentityModel;
 using Menu.API.Abstraction.Facades;
@@ -117,15 +115,6 @@ namespace Menu.API
                     }
                 });
                 options.OperationFilter<SecurityRequirementsOperationFilter>();
-            });
-
-            services.AddScoped<IAmazonS3>(provider =>
-            {
-                var configuration = provider.GetService<IConfiguration>();
-                var accessKeyId = "";
-                var secretKey = "";
-                var amazonInstance = new AmazonS3Client(accessKeyId, secretKey, RegionEndpoint.EUCentral1);
-                return amazonInstance;
             });
 
             services.AddScoped<IFileUploadManager, LocalFileUploadManager>();
