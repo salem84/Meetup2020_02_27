@@ -23,6 +23,14 @@ steps:
     packageType: sdk
 
 - task: DotNetCoreCLI@2
+  displayName: "Restore Nuget Packages"
+  inputs:
+    command: 'restore'
+    projects: $(solution)
+    feedsToUse: 'select'
+    verbosityRestore: 'Normal'
+
+- task: DotNetCoreCLI@2
   inputs:
     command: 'build'
     projects: |
