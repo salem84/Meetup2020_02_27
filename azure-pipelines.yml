@@ -40,7 +40,7 @@ steps:
   displayName: "Test"
   inputs:
     command: 'test'
-    projects: '**/*.sln'
+    projects: $(solution)
     arguments: --configuration $(buildConfiguration) --no-build --no-restore /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=$(Build.SourcesDirectory)\Coverage\
 
 # - script: >-
