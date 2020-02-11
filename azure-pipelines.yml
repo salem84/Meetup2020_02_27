@@ -41,7 +41,7 @@ steps:
   inputs:
     command: 'test'
     projects: $(solution)
-    arguments: --configuration $(buildConfiguration) --no-build --no-restore /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=$(Build.SourcesDirectory)\Coverage\
+    arguments: --configuration $(buildConfiguration) --no-build --no-restore /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=$(Build.SourcesDirectory)/coverage/
 
 # - script: >-
 #     dotnet tool install coverlet.console
@@ -56,13 +56,13 @@ steps:
 
 - script: >-
     reportgenerator 
-    "-reports:$(Build.SourcesDirectory)\Coverage\*.xml" 
-    "-targetdir:$(Build.SourcesDirectory)\Coverage\Html" 
+    "-reports:$(Build.SourcesDirectory)/coverage/*.xml" 
+    "-targetdir:$(Build.SourcesDirectory)/coverage/Html" 
     "-reporttypes:Cobertura;HtmlInline_AzurePipelines;Badges"
   displayName: Generate code coverage report
 
 - task: PublishCodeCoverageResults@1
   inputs:
     codeCoverageTool: 'cobertura'
-    summaryFileLocation: $(Build.SourcesDirectory)\coverage\html\Cobertura.xml
-    reportDirectory: $(Build.SourcesDirectory)\coverage\html
+    summaryFileLocation: $(Build.SourcesDirectory)/coverage/html/cobertura.xml
+    reportDirectory: $(Build.SourcesDirectory)/coverage/html
