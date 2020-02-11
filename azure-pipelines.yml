@@ -41,3 +41,16 @@ steps:
     --global 
 #    --version $(reportGenerator_Version)
   displayName: "Install code coverage report generator tool"
+
+- script: >-
+    reportgenerator 
+    "-reports:$(Build.SourcesDirectory)\Coverage\*.xml" 
+    "-targetdir:$(Build.SourcesDirectory)\Coverage\Html" 
+    "-reporttypes:Cobertura;HtmlInline_AzurePipelines;Badges"
+  displayName: Generate code coverage report
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: 'cobertura'
+    summaryFileLocation: $(Build.SourcesDirectory)\coverage\html\Cobertura.xml
+    reportDirectory: $(Build.SourcesDirectory)\coverage\html
