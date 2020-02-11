@@ -61,8 +61,4 @@ steps:
     "-reporttypes:Cobertura;HtmlInline_AzurePipelines;Badges"
   displayName: Generate code coverage report
 
-- task: PublishCodeCoverageResults@1
-  inputs:
-    codeCoverageTool: 'cobertura'
-    summaryFileLocation: $(Build.SourcesDirectory)/coverage/html/Cobertura.xml
-    reportDirectory: $(Build.SourcesDirectory)/coverage/html
+
