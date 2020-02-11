@@ -64,5 +64,5 @@ steps:
 - task: PublishCodeCoverageResults@1
   inputs:
     codeCoverageTool: 'cobertura'
-    summaryFileLocation: $(Build.SourcesDirectory)/coverage/html/cobertura.xml
+    summaryFileLocation: $(Build.SourcesDirectory)/coverage/html/Cobertura.xml
     reportDirectory: $(Build.SourcesDirectory)/coverage/html
