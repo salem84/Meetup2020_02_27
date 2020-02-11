@@ -22,20 +22,20 @@ steps:
     version: '3.1.x'
     packageType: sdk
 
-- task: DotNetCoreCLI@2
-  displayName: "Restore Nuget Packages"
-  inputs:
-    command: 'restore'
-    projects: $(solution)
-    feedsToUse: 'select'
-    verbosityRestore: 'Normal'
+# - task: DotNetCoreCLI@2
+#   displayName: "Restore Nuget Packages"
+#   inputs:
+#     command: 'restore'
+#     projects: $(solution)
+#     feedsToUse: 'select'
+#     verbosityRestore: 'Normal'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
     projects: |
        $(solution)
-    arguments: --configuration $(buildConfiguration) --no-restore -p:Version=$(Build.BuildNumber)
+    arguments: --configuration $(buildConfiguration)
     versioningScheme: byBuildNumber
 
 - script: >-
