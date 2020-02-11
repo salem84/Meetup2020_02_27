@@ -15,6 +15,13 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+
+- task: UseDotNet@2 
+  displayName: ".NET Core 3.1.x"
+  inputs:
+    version: '3.1.x'
+    packageType: sdk
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
@@ -22,3 +29,9 @@ steps:
        $(solution)
     arguments: --configuration $(buildConfiguration) --no-restore -p:Version=$(Build.BuildNumber)
     versioningScheme: byBuildNumber
+
+- script: >-
+    dotnet tool install dotnet-reportgenerator-globaltool 
+    --global 
+#    --version $(reportGenerator_Version)
+  displayName: "Install code coverage report generator tool"
