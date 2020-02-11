@@ -32,18 +32,19 @@ namespace Food.API
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services, IWebHostEnvironment env)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddOptions();
             services.AddDbContext<FoodDbContext>(opt =>
             {
-                if (env.IsDevelopment())
+                var connString = Configuration.GetConnectionString("FoodDatabaseConnString");
+                if(string.IsNullOrEmpty(connString))
                 {
                     opt.UseInMemoryDatabase("FoodDatabase");
                 }
                 else
                 {
-                    opt.UseSqlServer(Configuration.GetConnectionString("FoodDatabaseConnString"));
+                    opt.UseSqlServer(connString);
                 }
             });
             services.AddCors(options =>

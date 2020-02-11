@@ -22,6 +22,7 @@ namespace Food.API
                 try
                 {
                     var context = services.GetRequiredService<FoodDbContext>();
+                    context.Database.EnsureCreated();
                     var dbInitializer = services.GetRequiredService<ISeedDataService>();
                     dbInitializer.Initialize(context).GetAwaiter().GetResult();
                 }
