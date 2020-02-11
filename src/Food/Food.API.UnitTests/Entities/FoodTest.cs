@@ -4,10 +4,10 @@ using System.Text;
 using Albedo;
 using AutoFixture.Idioms;
 using BaseUnitTests;
-using SampleWebApiAspNetCore.Entities;
+using Food.API.Entities;
 using Xunit;
 
-namespace Menu.API.UnitTests.Models
+namespace Food.API.UnitTests.Models
 {
 	public class FoodTest
 	{

@@ -9,14 +9,14 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using SampleWebApiAspNetCore.Dtos;
-using SampleWebApiAspNetCore.Entities;
-using SampleWebApiAspNetCore.Models;
-using SampleWebApiAspNetCore.Repositories;
-using SampleWebApiAspNetCore.v1.Controllers;
+using Food.API.Dtos;
+using Food.API.Entities;
+using Food.API.Models;
+using Food.API.Repositories;
+using Food.API.v1.Controllers;
 using Xunit;
 
-namespace Menu.API.UnitTests.Controllers
+namespace Food.API.UnitTests.Controllers
 {
     public class FoodsControllerTests : BaseAutoMockedTest<FoodsController>
     {

@@ -1,9 +1,9 @@
-﻿using SampleWebApiAspNetCore.Entities;
-using SampleWebApiAspNetCore.Repositories;
+﻿using Food.API.Entities;
+using Food.API.Repositories;
 using System;
 using System.Threading.Tasks;
 
-namespace SampleWebApiAspNetCore.Services
+namespace Food.API.Services
 {
     public class SeedDataService : ISeedDataService
     {

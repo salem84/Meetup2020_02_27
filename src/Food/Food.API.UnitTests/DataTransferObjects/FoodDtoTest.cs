@@ -1,10 +1,10 @@
 using Albedo;
 using AutoFixture.Idioms;
 using BaseUnitTests;
-using SampleWebApiAspNetCore.Dtos;
+using Food.API.Dtos;
 using Xunit;
 
-namespace Menu.API.UnitTests.DataTransferObjects
+namespace Food.API.UnitTests.DataTransferObjects
 {
     public class FoodDtoTest
     {

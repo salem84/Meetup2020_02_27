@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Linq;
 using AutoMapper;
-using SampleWebApiAspNetCore.Dtos;
+using Food.API.Dtos;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using SampleWebApiAspNetCore.Repositories;
+using Food.API.Repositories;
 using System.Collections.Generic;
-using SampleWebApiAspNetCore.Entities;
-using SampleWebApiAspNetCore.Models;
-using SampleWebApiAspNetCore.Helpers;
+using Food.API.Entities;
+using Food.API.Models;
+using Food.API.Helpers;
 
-namespace SampleWebApiAspNetCore.v1.Controllers
+namespace Food.API.v1.Controllers
 {
     [ApiController]
     [ApiVersion("1.0")]

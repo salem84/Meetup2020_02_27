@@ -1,8 +1,8 @@
 using System;
 using System.Linq;
-using SampleWebApiAspNetCore.Models;
+using Food.API.Models;
 
-namespace SampleWebApiAspNetCore.Helpers
+namespace Food.API.Helpers
 {
     public static class QueryParametersExtensions
     {

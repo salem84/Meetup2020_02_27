@@ -15,12 +15,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
-using SampleWebApiAspNetCore.MappingProfiles;
-using SampleWebApiAspNetCore.Repositories;
-using SampleWebApiAspNetCore.Services;
+using Food.API.MappingProfiles;
+using Food.API.Repositories;
+using Food.API.Services;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace SampleWebApiAspNetCore
+namespace Food.API
 {
     public class Startup
     {

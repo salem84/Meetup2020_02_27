@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SampleWebApiAspNetCore.Entities;
+using Food.API.Entities;
 
-namespace SampleWebApiAspNetCore.Repositories
+namespace Food.API.Repositories
 {
     public class FoodDbContext : DbContext
     {

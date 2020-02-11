@@ -1,7 +1,7 @@
-﻿using SampleWebApiAspNetCore.Repositories;
+﻿using Food.API.Repositories;
 using System.Threading.Tasks;
 
-namespace SampleWebApiAspNetCore.Services
+namespace Food.API.Services
 {
     public interface ISeedDataService
     {

@@ -1,4 +1,4 @@
-namespace SampleWebApiAspNetCore.Models
+namespace Food.API.Models
 {
     public class LinkDto
     {

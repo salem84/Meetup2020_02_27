@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using SampleWebApiAspNetCore.Dtos;
-using SampleWebApiAspNetCore.Entities;
+using Food.API.Dtos;
+using Food.API.Entities;
 
-namespace SampleWebApiAspNetCore.MappingProfiles
+namespace Food.API.MappingProfiles
 {
     public class FoodMappings : Profile
     {

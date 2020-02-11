@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace SampleWebApiAspNetCore.v2.Controllers
+namespace Food.API.v2.Controllers
 {
     [ApiController]
     [ApiVersion("2.0")]

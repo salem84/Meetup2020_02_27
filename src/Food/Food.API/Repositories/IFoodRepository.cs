@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SampleWebApiAspNetCore.Entities;
-using SampleWebApiAspNetCore.Models;
+using Food.API.Entities;
+using Food.API.Models;
 
-namespace SampleWebApiAspNetCore.Repositories
+namespace Food.API.Repositories
 {
     public interface IFoodRepository
     {
