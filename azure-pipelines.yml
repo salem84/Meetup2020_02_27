@@ -57,7 +57,7 @@ steps:
 - script: >-
     reportgenerator 
     "-reports:$(Build.SourcesDirectory)/coverage/*.xml" 
-    "-targetdir:$(Build.SourcesDirectory)/coverage/Html" 
+    "-targetdir:$(Build.SourcesDirectory)/coverage/html" 
     "-reporttypes:Cobertura;HtmlInline_AzurePipelines;Badges"
   displayName: Generate code coverage report
 
