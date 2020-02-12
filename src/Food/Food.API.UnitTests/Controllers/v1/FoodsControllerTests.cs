@@ -65,15 +65,54 @@ namespace Food.API.UnitTests.Controllers.v1
         {
             FoodCreateDto foodDto = null;
 
-            var controller = ClassUnderTest;
-
-            // Ensure the controller can add response headers
-            controller.ControllerContext = new ControllerContext();
-            controller.ControllerContext.HttpContext = new DefaultHttpContext();
-
-            var result = controller.AddFood(ApiVersion.Default, foodDto);
+            var result = ClassUnderTest.AddFood(ApiVersion.Default, foodDto);
 
             result.Should().BeOfType<BadRequestResult>();
+        }
+
+        [Fact]
+        public void Given_valid_FoodCreateDto_should_return_uri_resource()
+        {
+            var foodCreateDto = new FoodCreateDto()
+            {
+                Name = "Portata1",
+                Type = "Antipasto",
+                Calories = 100,
+                Created = DateTime.Now
+            };
+
+            var foodEntityDto = new FoodEntity()
+            {
+                Id = 10,
+                Name = "Portata1",
+                Type = "Antipasto",
+                Calories = 100,
+                Created = DateTime.Now
+            };
+
+            var foodDto = new FoodDto()
+            {
+                Id = 10,
+                Name = "Portata1",
+                Type = "Antipasto",
+                Calories = 100,
+                Created = DateTime.Now
+            };
+
+            GetMock<IMapper>().Setup(x => x.Map<FoodEntity>(It.IsAny<FoodCreateDto>())).Returns(foodEntityDto);
+            GetMock<IMapper>().Setup(x => x.Map<FoodDto>(It.IsAny<FoodEntity>())).Returns(foodDto);
+
+            GetMock<IFoodRepository>().Setup(x => x.Save()).Returns(true);
+            GetMock<IFoodRepository>().Setup(x => x.GetSingle(It.IsAny<int>())).Returns(foodEntityDto);
+
+            var actionResult = ClassUnderTest.AddFood(ApiVersion.Default, foodCreateDto);
+
+            var result = actionResult as CreatedAtRouteResult;
+            result.Should().NotBeNull();
+            result.Value.Should().BeOfType<FoodDto>();
+            var resultFood = result.Value as FoodDto;
+            resultFood.Id.Should().Be(foodDto.Id);
+
         }
 
         [Fact]
