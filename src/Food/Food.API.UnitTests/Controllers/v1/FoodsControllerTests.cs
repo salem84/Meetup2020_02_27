@@ -16,7 +16,7 @@ using Food.API.Repositories;
 using Food.API.v1.Controllers;
 using Xunit;
 
-namespace Food.API.UnitTests.Controllers
+namespace Food.API.UnitTests.Controllers.v1
 {
     public class FoodsControllerTests : BaseAutoMockedTest<FoodsController>
     {
@@ -30,19 +30,14 @@ namespace Food.API.UnitTests.Controllers
             var queryParameters = new QueryParameters();
             GetMock<IFoodRepository>().Setup(x => x.GetAll(queryParameters)).Returns(foods.AsQueryable());
             GetMock<IMapper>().Setup(x => x.Map<FoodDto>(It.IsAny<FoodEntity>())).Returns(foodDtos.First());
-            GetMock<IMapper>().Setup(x => x.Map<IEnumerable<FoodDto>>(It.IsAny<List<FoodEntity>>())).Returns(foodDtos);
-
-            var controller = ClassUnderTest;
-
-            // Ensure the controller can add response headers
-            controller.ControllerContext = new ControllerContext();
-            controller.ControllerContext.HttpContext = new DefaultHttpContext();
 
             // When
-            var result = controller.GetAllFoods(ApiVersion.Default, queryParameters);
+            var actionResult = ClassUnderTest.GetAllFoods(ApiVersion.Default, queryParameters);
 
             // Then
-            result.Should().BeOfType<OkObjectResult>();
+            var result = actionResult.Result as OkObjectResult;
+            result.Should().NotBeNull();
+            result.Value.Should().BeAssignableTo<IEnumerable<FoodDto>>();
         }
 
         [Fact]
@@ -56,18 +51,13 @@ namespace Food.API.UnitTests.Controllers
             GetMock<IFoodRepository>().Setup(x => x.GetSingle(id)).Returns(food);
             GetMock<IMapper>().Setup(x => x.Map<FoodDto>(It.IsAny<FoodEntity>())).Returns(foodDto);
 
-            var controller = ClassUnderTest;
-
-            // Ensure the controller can add response headers
-            controller.ControllerContext = new ControllerContext();
-            controller.ControllerContext.HttpContext = new DefaultHttpContext();
-
             // When
-            var result = controller.GetSingleFood(ApiVersion.Default, id);
+            var actionResult = ClassUnderTest.GetSingleFood(ApiVersion.Default, id);
 
             // Then
-            //result.Should().Be(foodDto);
-            result.Should().BeOfType<OkObjectResult>();
+            var result = actionResult.Result as OkObjectResult;
+            result.Should().NotBeNull();
+            result.Value.Should().BeAssignableTo<FoodDto>();
         }
 
         [Fact]
@@ -91,7 +81,6 @@ namespace Food.API.UnitTests.Controllers
         {
             var id = -1;
             var foodDto = new FoodDto { Id = id };
-            //GetMock<IMapper>().Setup(x => x.Map<FoodEntity>(foodDto)).Throws<Exception>();
 
             var result = ClassUnderTest.RemoveFood(id);
             result.Should().BeOfType<BadRequestResult>();
