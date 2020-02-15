@@ -7,7 +7,7 @@ const myFailRate = new Rate('custom_fail_rate');
 export let options = {
     vus: 10,
     thresholds: {
-        "custom_fail_rate": ["p<5"]
+        "custom_fail_rate": ["rate < 0.2"]
     }
 };
 
@@ -19,8 +19,7 @@ export default function() {
         check(res, {
             "is status 200": (r) => r.status === 200
         });
-
-        myFailRate.add(res.error_code);
+        myFailRate.add(res.status == 503);
 
         sleep(5);
     });
