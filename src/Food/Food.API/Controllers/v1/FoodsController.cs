@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Food.API.Entities;
 using Food.API.Models;
 using Food.API.Helpers;
+using Microsoft.Extensions.Configuration;
 
 namespace Food.API.v1.Controllers
 {
@@ -20,14 +21,17 @@ namespace Food.API.v1.Controllers
         private readonly IFoodRepository _foodRepository;
         private readonly IUrlHelper _urlHelper;
         private readonly IMapper _mapper;
+        private readonly IConfiguration Configuration;
 
         public FoodsController(
             IUrlHelper urlHelper,
             IFoodRepository foodRepository,
-            IMapper mapper)
+            IMapper mapper,
+            IConfiguration configuration)
         {
             _foodRepository = foodRepository;
             _mapper = mapper;
+            Configuration = configuration;
             _urlHelper = urlHelper;
         }
 
@@ -171,11 +175,22 @@ namespace Food.API.v1.Controllers
         [HttpGet("GetRandomMeal", Name = nameof(GetRandomMeal))]
         public ActionResult<IEnumerable<FoodDto>> GetRandomMeal()
         {
-            ICollection<FoodEntity> foodItems = _foodRepository.GetRandomMeal();
+            var configRandomRate = Configuration.GetValue<double>("ErrorGenerator:ErrorRate");
+            var randomValue = new Random().NextDouble();
 
-            var dtos = foodItems.Select(x => _mapper.Map<FoodDto>(x)).ToList();
+            if(randomValue > configRandomRate)
+            {
+                ICollection<FoodEntity> foodItems = _foodRepository.GetRandomMeal();
 
-            return dtos;
+                var dtos = foodItems.Select(x => _mapper.Map<FoodDto>(x)).ToList();
+
+                return dtos;
+            }
+            else
+            {
+                return StatusCode(503);
+            }
+            
         }
         private FoodDto ExpandSingleFoodItem(FoodEntity foodItem, ApiVersion version)
         {
