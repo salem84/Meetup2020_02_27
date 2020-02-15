@@ -5,7 +5,10 @@ import { Rate } from "k6/metrics";
 const myFailRate = new Rate('custom_fail_rate');
 
 export let options = {
-    vus: 10
+    vus: 10,
+    thresholds: {
+        "custom_fail_rate": ["p<5"]
+    }
 };
 
 // User scenario
