@@ -1,8 +1,6 @@
 import { check, group, sleep } from "k6";
 import http from "k6/http";
-import { Rate } from "k6/metrics";
 
-const myFailRate = new Rate('failed requests');
 const apiRandomMeal = "https://www.themealdb.com/api/json/v1/1/random.php";
 const apiBaseURL = "https://meetup2020.azurewebsites.net/api/v1";
 
@@ -47,8 +45,6 @@ export default function() {
         check(res, {
             "is created (status 201)": (r) => r.status === 201
         });
-
-        myFailRate.add(res.status !== 201);
 
         sleep(sleepTimeSec);
     });
