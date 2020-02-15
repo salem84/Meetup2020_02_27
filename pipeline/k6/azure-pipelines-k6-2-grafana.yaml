@@ -7,5 +7,5 @@ variables:
 
 steps:
 - script: |
-    docker run -i -v `pwd`:/src loadimpact/k6 run /src/tests/performance/get_food.js -i $(iterations) -u $(users) --out influxdb=http://grafanagio4rh5tuqwifp7k.northeurope.cloudapp.azure.com:8086/myk6db
+    docker run -i -v `pwd`:/src loadimpact/k6 run /src/tests/performance/get_foods.js -i $(iterations) -u $(users) --out influxdb=http://grafanagio4rh5tuqwifp7k.northeurope.cloudapp.azure.com:8086/myk6db
   displayName: Run k6 from Docker
