@@ -21,7 +21,7 @@ steps:
   inputs:
     command: 'test'
     projects: $(solution)
-    arguments: --configuration $(buildConfiguration) --no-build /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=$(Build.SourcesDirectory)/coverage/
+    arguments: --configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput=$(Build.SourcesDirectory)/coverage/
 
 - script: >-
     dotnet tool install dotnet-reportgenerator-globaltool 
