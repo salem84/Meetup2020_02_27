@@ -1,3 +1,5 @@
+trigger: none
+
 pool:
   vmImage: 'ubuntu-18.04'
 
