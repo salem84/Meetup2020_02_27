@@ -8,6 +8,7 @@ variables:
   solution: '**/FoodSolution.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  GitVersion.SemVer: ''
 
 steps:
 
@@ -17,11 +18,19 @@ steps:
     version: '3.1.x'
     packageType: sdk
 
+
+- task: GitVersion@5
+  inputs:
+    runtime: 'core'
+    updateAssemblyInfo: true
+
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
     projects: $(solution)
     arguments: --configuration $(buildConfiguration)
+    versioningScheme: byEnvVar
+    versionEnvVar: 'GitVersion.SemVer'
 
 - task: DotNetCoreCLI@2
   displayName: "Test"
