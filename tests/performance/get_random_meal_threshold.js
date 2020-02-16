@@ -6,6 +6,7 @@ const myFailRate = new Rate('custom_fail_rate');
 
 export let options = {
     vus: 10,
+    duration: "30s",
     thresholds: {
         "custom_fail_rate": ["rate < 0.2"]
     }
