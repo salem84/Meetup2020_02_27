@@ -19,9 +19,10 @@ steps:
     packageType: sdk
 
 
-- task: GitVersion@5
+- task: UseGitVersion@5
+  displayName: gitversion
   inputs:
-    runtime: 'core'
+    versionSpec: '5.x'
     updateAssemblyInfo: true
 
 - task: DotNetCoreCLI@2
