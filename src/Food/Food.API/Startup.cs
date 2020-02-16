@@ -17,6 +17,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
 using Food.API.MappingProfiles;
 using Food.API.Repositories;
+using Food.API.Filters;
 using Food.API.Services;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -97,6 +98,10 @@ namespace Food.API
             services.AddSwaggerGen();
 
             services.AddAutoMapper(typeof(FoodMappings));
+
+            services.AddTransient<ErrorSimulatorFilter>();
+            services.AddTransient<DelaySimulatorFilter>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -130,6 +135,7 @@ namespace Food.API
                     });
                 });
             }
+
 
             app.UseHttpsRedirection();
             app.UseRouting();
