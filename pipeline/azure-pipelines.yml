@@ -19,19 +19,19 @@ steps:
     packageType: sdk
 
 
-- task: UseGitVersion@5
-  displayName: gitversion
-  inputs:
-    versionSpec: '5.x'
-    updateAssemblyInfo: true
+# - task: UseGitVersion@5
+#   displayName: GitVersion
+#   inputs:
+#     versionSpec: '5.x'
+#     updateAssemblyInfo: true
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
     projects: $(solution)
     arguments: --configuration $(buildConfiguration)
-    versioningScheme: byEnvVar
-    versionEnvVar: 'GitVersion.SemVer'
+    # versioningScheme: byEnvVar
+    # versionEnvVar: 'GitVersion.SemVer'
 
 - task: DotNetCoreCLI@2
   displayName: "Test"
