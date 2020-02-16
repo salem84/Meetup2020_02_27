@@ -20,6 +20,7 @@ using Food.API.Repositories;
 using Food.API.Filters;
 using Food.API.Services;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using Elmah.Io.AspNetCore;
 
 namespace Food.API
 {
@@ -102,6 +103,9 @@ namespace Food.API
             services.AddTransient<ErrorSimulatorFilter>();
             services.AddTransient<DelaySimulatorFilter>();
 
+            services.Configure<ElmahIoOptions>(Configuration.GetSection("ElmahIo"));
+            services.AddElmahIo();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -136,6 +140,7 @@ namespace Food.API
                 });
             }
 
+            app.UseElmahIo();
 
             app.UseHttpsRedirection();
             app.UseRouting();
