@@ -4,8 +4,8 @@ pool:
   vmImage: 'ubuntu-18.04'
 
 variables:
-  iterations: 1
-  users: 1
+  iterations: 10
+  users: 10
 
 steps:
 - script: |
