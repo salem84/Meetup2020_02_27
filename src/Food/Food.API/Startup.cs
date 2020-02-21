@@ -21,6 +21,7 @@ using Food.API.Filters;
 using Food.API.Services;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Elmah.Io.AspNetCore;
+using Food.API.Models;
 
 namespace Food.API
 {
@@ -100,11 +101,16 @@ namespace Food.API
 
             services.AddAutoMapper(typeof(FoodMappings));
 
+            services.AddOptions()
+                .Configure<ErrorSimulatorOptions>(Configuration.GetSection("ErrorSimulator"))
+                .Configure<DelaySimulatorOptions>(Configuration.GetSection("DelaySimulator"))
+                .Configure<ElmahIoOptions>(Configuration.GetSection("ElmahIo"));
+
             services.AddTransient<ErrorSimulatorFilter>();
             services.AddTransient<DelaySimulatorFilter>();
 
-            services.Configure<ElmahIoOptions>(Configuration.GetSection("ElmahIo"));
-            services.AddElmahIo();
+            if(!string.IsNullOrEmpty(Configuration.GetValue<string>("ElmahIo:ApiKey")))
+                services.AddElmahIo();
 
         }
 
@@ -140,7 +146,8 @@ namespace Food.API
                 });
             }
 
-            app.UseElmahIo();
+            if (!string.IsNullOrEmpty(Configuration.GetValue<string>("ElmahIo:ApiKey")))
+                app.UseElmahIo();
 
             app.UseHttpsRedirection();
             app.UseRouting();

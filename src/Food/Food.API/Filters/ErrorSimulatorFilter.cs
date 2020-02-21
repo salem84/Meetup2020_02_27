@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Food.API.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +13,12 @@ namespace Food.API.Filters
 
     public class ErrorSimulatorFilter : IActionFilter
     {
-        public ErrorSimulatorFilter(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        private readonly IOptionsSnapshot<ErrorSimulatorOptions> _errorOptions;
 
-        public IConfiguration Configuration { get; }
+        public ErrorSimulatorFilter(IOptionsSnapshot<ErrorSimulatorOptions> errorOptions)
+        {
+            _errorOptions = errorOptions;
+        }
 
         public void OnActionExecuted(ActionExecutedContext context)
         {
@@ -24,13 +26,11 @@ namespace Food.API.Filters
 
         public void OnActionExecuting(ActionExecutingContext context)
         {
-            var configRandomRate = Configuration.GetValue<double>("ErrorSimulator:ErrorRate");
             var randomValue = new Random().NextDouble();
 
-            if (randomValue < configRandomRate)
+            if (randomValue < _errorOptions.Value.ErrorRate)
             {
-                var statusCode = Configuration.GetValue<int>("ErrorSimulator:ErrorStatusCode"); ;
-                context.Result = new StatusCodeResult(statusCode);
+                context.Result = new StatusCodeResult(_errorOptions.Value.ErrorStatusCode);
             }
         }
     }
