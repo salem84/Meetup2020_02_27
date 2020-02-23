@@ -124,15 +124,5 @@ namespace Food.API.UnitTests.Controllers.v1
             var result = ClassUnderTest.RemoveFood(id);
             result.Should().BeOfType<BadRequestResult>();
         }
-
-        [Fact]
-        public void Failed_test_case()
-        {
-            var id = -1;
-            var foodDto = new FoodDto { Id = id };
-
-            var result = ClassUnderTest.RemoveFood(id);
-            result.Should().BeOfType<OkObjectResult>();
-        }
     }
 }
