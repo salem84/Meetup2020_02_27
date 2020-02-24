@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Food.API.Services;
 using Food.API.Filters;
 using System.Reflection;
+using Microsoft.Extensions.Options;
 
 namespace Food.API.v1.Controllers
 {
@@ -24,17 +25,20 @@ namespace Food.API.v1.Controllers
         private readonly IFoodRepository _foodRepository;
         private readonly IUrlHelper _urlHelper;
         private readonly IMapper _mapper;
-        private readonly IConfiguration Configuration;
+        private readonly IOptionsSnapshot<ErrorSimulatorOptions> _errorOptions;
+        private readonly IOptionsSnapshot<DelaySimulatorOptions> _delayOptions;
 
         public FoodsController(
             IUrlHelper urlHelper,
             IFoodRepository foodRepository,
             IMapper mapper,
-            IConfiguration configuration)
+            IOptionsSnapshot<ErrorSimulatorOptions> errorOptions,
+            IOptionsSnapshot<DelaySimulatorOptions> delayOptions)
         {
             _foodRepository = foodRepository;
             _mapper = mapper;
-            Configuration = configuration;
+            _errorOptions = errorOptions;
+            _delayOptions = delayOptions;
             _urlHelper = urlHelper;
         }
 
@@ -191,6 +195,18 @@ namespace Food.API.v1.Controllers
         public ActionResult<string> GetVersion()
         {
             return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        }
+
+        [HttpGet("GetConfiguration", Name = nameof(GetConfiguration))]
+        public ActionResult<object> GetConfiguration()
+        {
+            return new
+            {
+                ErrorRate = _errorOptions.Value.ErrorRate,
+                ErrorStatusCode =_errorOptions.Value.ErrorStatusCode,
+                DelayRate = _delayOptions.Value.DelayRate,
+                DelayAverageMs = _delayOptions.Value.DelayAverageMs
+            };
         }
 
         private FoodDto ExpandSingleFoodItem(FoodEntity foodItem, ApiVersion version)
