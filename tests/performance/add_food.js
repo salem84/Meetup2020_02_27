@@ -12,10 +12,12 @@ const isLogEnabled = true;
 
 // Test configuration
 export let options = {
-    // Rampup for 10s from 1 to MAX, stay at MAX, and then down to 0
+    // Rampup
     stages: [
         { duration: "10s", target: maxUsers },
         { duration: "20s", target: maxUsers },
+        { duration: "15s", target: (maxUsers / 2) },
+        { duration: "5s", target: maxUsers },
         { duration: "10s", target: 0 }
     ],
     thresholds: {
@@ -23,10 +25,38 @@ export let options = {
     }
 };
 
+
+
+export function setup() {
+    log("Init Random meals");
+    const totalTestMeals = 20;
+    let arr = [];
+
+    if(randomMealLocal) {
+        log("Using random numbers to generate meals");
+        for (let index = 0; index < totalTestMeals; index++) {
+            arr.push({
+                strMeal: "Cibo " + Math.floor(Math.random() * 500),
+                strCategory: "Generico"
+            });
+        }
+    }
+    else {
+        log("Using API to generate random meals");
+        for (let index = 0; index < totalTestMeals; index++) {
+            let randomMeal = http.get(apiRandomMeal);
+            log("Received random meal");
+            arr.push(randomMeal.json().meals[0]);
+        }
+    }
+
+    return { mealsTestList: arr };
+}
+
 // User scenario
-export default function() {
+export default function(data) {
     group("Add food", function() {        
-        let meal = getRandomMeal();
+        let meal = getRandomMeal(data.mealsTestList);
 
         let payload = 
         {
@@ -50,18 +80,9 @@ export default function() {
     });
 }
 
-function getRandomMeal() {
-    if(randomMealLocal) {
-        return {
-            strMeal: "Cibo " + Math.floor(Math.random() * 500),
-            strCategory: "Generico"
-        }
-    }
-    else {
-        let randomMeal = http.get(apiRandomMeal);
-        log("Received random meal");
-        return randomMeal.json().meals[0];
-    }
+function getRandomMeal(mealsTestList) {
+    let rndMealItemIndex = Math.floor(Math.random() * mealsTestList.length);
+    return mealsTestList[rndMealItemIndex];
 }
 
 function printConfiguration() {
