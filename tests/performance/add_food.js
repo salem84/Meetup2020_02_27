@@ -5,7 +5,7 @@ const apiRandomMeal = "https://www.themealdb.com/api/json/v1/1/random.php";
 const apiBaseURL = "https://meetup2020.azurewebsites.net/api/v1";
 
 // Test Configuration
-const maxUsers = 20;
+const maxUsers = 2000;
 const sleepTimeSec = 1;
 const randomMealLocal = true;
 const isLogEnabled = true;
